@@ -15,8 +15,8 @@ def chat_session(generative_agent, stateless=False):
     print("Type 'bye' to exit.")
     print("")
 
-    context = input("First, describe the context of this conversation: ")
-    user_name = input("And what is your name: ")
+    # context = input("First, describe the context of this conversation: ")
+    user_name = input("What is your name: ")
     print("")
 
     curr_convo = []
@@ -61,8 +61,9 @@ def ask_agent_to_reflect():
 
 def main():
     # build_agent()
-    interview_agent()
+    # interview_agent()
     chat_with_agent()
+    exit()
     ask_agent_to_reflect()
 
 
