@@ -45,11 +45,17 @@ def _utterance_agent_desc(agent: "GenerativeAgent", anchor: str) -> str:
     # Hint: Set n_count=10 and verbose=DEBUG
     # Reference: https://edstem.org/us/courses/68587/discussion/5449886
     # max timestep is a parameter we define, max of the last retrieved scores (iterate through entire list first to get max and use it for all at that time) IS A FUNCTION MAX
+
     time_step = max(
         [seq_node.last_retrieved for seq_node in agent.memory_stream.seq_nodes]
     )
+
+    pattern = r"\[.*?\]:\s*(.*?)(?=\n|\[|$)"
+    text = re.findall(pattern, anchor)
+    text = [text[0]]
+
     retrieved_memories = agent.memory_stream.retrieve(
-        focal_points=anchor, time_step=time_step, n_count=10, verbose=DEBUG
+        focal_points=text, time_step=time_step, n_count=10, verbose=DEBUG
     )
 
     # Step 5: Add the content of retrieved memories to the description

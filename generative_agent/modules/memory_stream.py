@@ -222,7 +222,7 @@ class MemoryStream:
 
         # <retrieved> is the main dictionary that we are returning
         retrieved = dict()
-        print(focal_points)
+        # print("focal points: ", focal_points)
         for focal_pt in focal_points:
             # Calculating the component dictionaries and normalizing them.
             x = extract_recency(curr_nodes)
@@ -231,10 +231,10 @@ class MemoryStream:
             importance_out = normalize_dict_floats(x, 0, 1)
             x = extract_relevance(curr_nodes, self.embeddings, focal_pt)
             relevance_out = normalize_dict_floats(x, 0, 1)
-            print("-" * 50)
-            print(focal_pt)
-            print(relevance_out)
-            exit()
+            # print("-" * 50)
+            # print(focal_pt)
+            # print(relevance_out)
+            # exit()
 
             # Computing the final scores that combines the component values.
             master_out = dict()
