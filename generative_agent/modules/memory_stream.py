@@ -417,7 +417,11 @@ def extract_importance(seq_nodes: List[ConceptNode]) -> Dict[int, float]:
     # Complete the function below.
     # [TODO]
 
-    return dict()
+    importance_out = dict()
+    for seq_node in seq_nodes:
+        importance_out[seq_node.node_id] = seq_node.importance
+
+    return importance_out
 
 
 def extract_relevance(
