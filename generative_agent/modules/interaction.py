@@ -52,7 +52,9 @@ def _utterance_agent_desc(agent: "GenerativeAgent", anchor: str) -> str:
 
     pattern = r"\[.*?\]:\s*(.*?)(?=\n|\[|$)"
     text = re.findall(pattern, anchor)
-    text = [text[0]]
+    text = [
+        text[-2]
+    ]  # retrieve second last element (e.g., [1, 2, 3, 4] --> [3]). this is to support not stateless case
 
     retrieved_memories = agent.memory_stream.retrieve(
         focal_points=text, time_step=time_step, n_count=10, verbose=DEBUG
