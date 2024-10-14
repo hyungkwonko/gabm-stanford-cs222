@@ -41,7 +41,6 @@ def build_agent():
     curr_agent = GenerativeAgent("SyntheticCS222_Base", "matthew_jacobs")
     for m in matthew_memories:
         curr_agent.remember(m)
-        exit()
     curr_agent.save("SyntheticCS222", "matthew_jacobs")
 
 
