@@ -72,7 +72,7 @@ def _utterance_agent_desc(agent: "GenerativeAgent", anchor: str) -> str:
     nodes = retrieved_memories[text[0]]
     agent_desc += "\n\n[RETRIEVED MEMORIES]\n"
     for i, node in enumerate(nodes):
-        agent_desc += f"{i}: {node.content}\n"
+        agent_desc += f"{i+1}: {node.content}\n"
 
     return agent_desc
 
