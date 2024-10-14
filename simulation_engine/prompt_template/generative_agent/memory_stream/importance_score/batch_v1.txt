@@ -9,4 +9,15 @@ Output format: Json dictionaries of the following format:
 }
 
 <commentblockmarker>###</commentblockmarker>
-[TODO]
+On the scale of 0 to 100, where 0 is purely mundane (e.g., brushing teeth, making bed) and 100 is extremely poignant (e.g., a break up, college acceptance), rate the likely poignancy of the list of memories. [Memories] is a numbered list of observations for which we are generating the scores for. [Output] should be a set as JSON dictionaries of the following format: 
+{
+"Item  1": <int importance score (range: 0 to 100) for item 1>,
+"Item  2": <int importance score (range: 0 to 100) for item 2>,
+...
+}
+
+[Memories]
+!<INPUT 0>!
+
+##
+[Output]
