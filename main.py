@@ -60,7 +60,7 @@ def ask_agent_to_reflect():
 
 
 def main():
-    build_agent()
+    # build_agent()
     interview_agent()
     chat_with_agent()
     ask_agent_to_reflect()

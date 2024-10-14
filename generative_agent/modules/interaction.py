@@ -33,17 +33,24 @@ def _utterance_agent_desc(agent: "GenerativeAgent", anchor: str) -> str:
     # Step 2: Add the agent's self-description
     # TODO: Add the self-description to agent_desc
     # Hint: Use agent.scratch.self_description
+    agent_desc += agent.scratch.self_description
 
     # Step 3: Add the agent's speech pattern
     # TODO: Add the speech pattern to agent_desc
     # Hint: Use agent.scratch.speech_pattern
+    agent_desc += agent.scratch.speech_pattern
 
     # Step 4: Retrieve relevant memories using the anchor
     # TODO: Use agent.memory_stream.retrieve to get relevant memories
+    retrieved_memories = agent.memory_stream.retrieve(
+        focal_points=anchor, time_step=1, n_count=10, verbose=DEBUG
+    )
     # Hint: Set n_count=10 and verbose=DEBUG
 
     # Step 5: Add the content of retrieved memories to the description
     # TODO: Iterate through the retrieved nodes and add their content to agent_desc
+    for retrieved_memories in retrieved_memories:
+        agent_desc += retrieved_memories
 
     return agent_desc
 

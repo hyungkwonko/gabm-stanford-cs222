@@ -375,12 +375,14 @@ def extract_recency(seq_nodes: List[ConceptNode]) -> Dict[int, float]:
     # Complete the function below.
     # [TODO]
 
-    print("seq_nodes: ", seq_nodes)
+    max_time_steps = max([seq_node.created for seq_node in seq_nodes])
 
-    print("---")
-    exit()
+    recency_out = dict()
+    for seq_node in seq_nodes:
+        score = 0.99 ** (max_time_steps - seq_node.created)
+        recency_out[seq_node.node_id] = score
 
-    return dict()
+    return recency_out
 
 
 def extract_importance(seq_nodes: List[ConceptNode]) -> Dict[int, float]:
