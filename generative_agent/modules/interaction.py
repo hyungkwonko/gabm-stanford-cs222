@@ -55,9 +55,14 @@ def _utterance_agent_desc(agent: "GenerativeAgent", anchor: str) -> str:
     text = [
         text[-2]
     ]  # retrieve second last element (e.g., [1, 2, 3, 4] --> [3]). this is to support not stateless case
+    dir = f"{BASE_DIR}/cs222_assignment_1/report/{agent.id}/retrieved__{agent.id}.json"
 
     retrieved_memories = agent.memory_stream.retrieve(
-        focal_points=text, time_step=time_step, n_count=10, verbose=DEBUG
+        focal_points=text,
+        time_step=time_step,
+        n_count=10,
+        verbose=DEBUG,
+        record_json=dir,
     )
 
     # Step 5: Add the content of retrieved memories to the description
