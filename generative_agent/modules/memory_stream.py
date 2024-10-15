@@ -301,13 +301,18 @@ class MemoryStream:
             new_ret_top = dict()
             for key, val in retrieved_top.items():
                 new_ret_top[key] = [i.content for i in val]
-            append_to_json(record_json, new_ret_top)
+            append_to_json(
+                record_json,
+                # record_json.replace("retrieved__", f"retrieved_{n_count}__"),
+                new_ret_top,
+            )
 
             new_ret_bottom = dict()
             for key, val in retrieved_bottom.items():
                 new_ret_bottom[key] = [i.content for i in val]
             append_to_json(
                 record_json.replace("retrieved__", "retrieved_reversed__"),
+                # record_json.replace("retrieved__", f"retrieved_{n_count}_reversed__"),
                 new_ret_bottom,
             )
 

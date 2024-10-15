@@ -1,4 +1,21 @@
-Name: 
-SU ID: 
+Name: Kwon Ko
+SU ID: kwonko (06753743)
 
 Response:
+
+## Whether it was retrieving the right information
+
+I believe the system generally works well for retrieving relevant and accurate information needed to answer the given question. For comparison, I tested generating the top 10 highest-ranked information, the top 20 ranked information, and the lowest 10 ranked information. The results indicate that the top 10 ranked information is the most relevant and essential for answering the question. For example, for the question "What business did you start after working for a larger firm?" the most relevant information was "Started his own real estate agency in Austin after working a few years under a larger firm," which was indeed included in the top 10 retrieval. Similarly, for the question "What political group did you join, and what beliefs did you strengthen through this association?" the most relevant information was "Joined a local libertarian group, strengthening his political beliefs in small government and financial independence," and it was also found in the top 10.
+
+However, I believe there are certain limitations due to the scoring system, which is based on three criteria: recency, relevance, and importance. Each criterion has room for improvement.
+
+First, in the case of recency, there is a possibility that older information might not be retrieved even if it's highly relevant because of its age. While this makes sense, as older information may decay in significance, different people may have varying abilities to recall information, so the decay rate could be adjusted individually.
+
+Second, the way importance is calculated seems somewhat arbitrary. Although the score ranges from 0 to 100, the highest value I encountered was 85, related to the sudden passing of someone's grandmother. I believe this event could warrant a higher score, which suggests that the scoring system might benefit from being more objectively determined. A more sophisticated algorithm could help address this.
+
+Third, in terms of relevance, the system currently uses an embedding technique, which has some known limitations. For example, embeddings may assume that all information is contained within sentences of similar length, which could cause longer sentences to lose important details. Also, similarity does not always equate to relevance; two sentences might share the same words but have different meanings. As a result, the system might retrieve similar sentences that are not truly relevant.
+
+
+## What distinguishes the memories that are considered "important" versus not
+
+In calculating the score, all three criteria—-recency, importance, and relevance—-are used. They are harmoniously combined to retrieve the most important information. This means that all of the criteria must matter to some degree. For example, if something has very high relevance but is outdated, the probability of retrieving it decreases. Similarly, there can be cases where the importance is low, but due to high recency, the information is still retrieved.
