@@ -98,6 +98,11 @@ def top_highest_x_values(d: Dict[Any, float], x: int) -> Dict[Any, float]:
     return top_v
 
 
+def top_lowest_x_values(d: Dict[Any, float], x: int) -> Dict[Any, float]:
+    bottom_v = dict(sorted(d.items(), key=lambda item: item[1])[:x])
+    return bottom_v
+
+
 # ##############################################################################
 # ###                              CONCEPT NODE                              ###
 # ##############################################################################
@@ -221,10 +226,8 @@ class MemoryStream:
                     curr_nodes += [curr_node]
 
         # <retrieved> is the main dictionary that we are returning
-        retrieved = dict()
-        # print("-" * 30)
-        # print("focal points: ", focal_points)
-        # print("-" * 30)
+        retrieved_top = dict()
+        retrieved_bottom = dict()
         for focal_pt in focal_points:
             # Calculating the component dictionaries and normalizing them.
             x = extract_recency(curr_nodes)
@@ -247,8 +250,20 @@ class MemoryStream:
                 )
 
             if verbose:
-                master_out = top_highest_x_values(master_out, len(master_out.keys()))
-                for key, val in master_out.items():
+                master_out_top = top_highest_x_values(
+                    master_out, len(master_out.keys())
+                )
+                master_out_bottom = top_lowest_x_values(
+                    master_out, len(master_out.keys())
+                )
+                for key, val in master_out_top.items():
+                    print(self.id_to_node[key].content, val)
+                    print(
+                        recency_w * recency_out[key] * 1,
+                        relevance_w * relevance_out[key] * 1,
+                        importance_w * importance_out[key] * 1,
+                    )
+                for key, val in master_out_bottom.items():
                     print(self.id_to_node[key].content, val)
                     print(
                         recency_w * recency_out[key] * 1,
@@ -260,24 +275,43 @@ class MemoryStream:
             # <master_out> has the key of node.id and value of float. Once we get
             # the highest x values, we want to translate the node.id into nodes
             # and return the list of nodes.
-            master_out = top_highest_x_values(master_out, n_count)
-            master_nodes = [self.id_to_node[key] for key in list(master_out.keys())]
+            master_out_top = top_highest_x_values(master_out, n_count)
+            master_nodes_top = [
+                self.id_to_node[key] for key in list(master_out_top.keys())
+            ]
+
+            master_out_bottom = top_lowest_x_values(master_out, n_count)
+            master_nodes_bottom = [
+                self.id_to_node[key] for key in list(master_out_bottom.keys())
+            ]
 
             # We do not want to update the last retrieved time_step for these nodes
             # if we are in a stateless mode.
             if not stateless:
-                for n in master_nodes:
+                for n in master_nodes_top:
                     n.retrieved_time_step = time_step
 
-            retrieved[focal_pt] = master_nodes
+                for n in master_nodes_bottom:
+                    n.retrieved_time_step = time_step
+
+            retrieved_top[focal_pt] = master_nodes_top
+            retrieved_bottom[focal_pt] = master_nodes_bottom
 
         if record_json:
-            new_ret = dict()
-            for key, val in retrieved.items():
-                new_ret[key] = [i.content for i in val]
-            append_to_json(record_json, new_ret)
+            new_ret_top = dict()
+            for key, val in retrieved_top.items():
+                new_ret_top[key] = [i.content for i in val]
+            append_to_json(record_json, new_ret_top)
 
-        return retrieved
+            new_ret_bottom = dict()
+            for key, val in retrieved_bottom.items():
+                new_ret_bottom[key] = [i.content for i in val]
+            append_to_json(
+                record_json.replace("retrieved__", "retrieved_reversed__"),
+                new_ret_bottom,
+            )
+
+        return retrieved_top
 
     def _add_node(
         self,
