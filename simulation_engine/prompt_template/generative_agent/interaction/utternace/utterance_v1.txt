@@ -8,4 +8,11 @@ Output format -- output your response in json, where you provide the following:
 {"utterance": "[...]"} 
 
 <commentblockmarker>###</commentblockmarker>
-[TODO]
+Using the provided [*PERSONA INFORMATION*] about the agent, generate a suitable response that reflects the agent's character and behavior. The response should be coherent, contextually appropriate, and aligned with the agent's persona. Return the output in JSON format with the following structure:
+{"utterance": "[AGENT'S RESPONSE]"}
+
+
+[*PERSONA INFORMATION*]
+!<INPUT 0>!
+
+!<INPUT 2>!
